@@ -35,6 +35,18 @@ public class MainActivity extends AppCompatActivity {
         return df.format(date);
     }
 
+    public static String getNowDateHuman() { //http://qiita.com/zuccyi/items/d9c185588a5628837137
+        final DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        final Date date = new Date(System.currentTimeMillis());
+        return df.format(date);
+    }
+
+    public static String getGPSLocation() { //http://qiita.com/yasumodev/items/5f0f030f0ebfcecdff11
+        final DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        final Date date = new Date(System.currentTimeMillis());
+        return df.format(date);
+    }
+
     public void saveLog(View view) { // from https://developer.android.com/training/basics/data-storage/files.html?hl=ja
         Context context = getApplicationContext();
         String nowtime = getNowDate();
@@ -147,4 +159,19 @@ public class MainActivity extends AppCompatActivity {
         editor.putString("log_content", "");
         editor.commit();
     }
+
+    public void enterTimeStamp(View view) {
+        EditText editText = (EditText) findViewById(R.id.edit_message);
+        editText.setText(getNowDateHuman() + " ");
+        String str = editText.getText().toString();
+        editText.setSelection(str.length());
+    }
+
+    public void enterLocationStamp(View view) {
+        EditText editText = (EditText) findViewById(R.id.edit_message);
+        editText.setText(getGPSLocation() + " ");
+        String str = editText.getText().toString();
+        editText.setSelection(str.length());
+    }
 }
+

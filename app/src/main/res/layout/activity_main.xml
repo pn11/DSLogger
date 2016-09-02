@@ -15,20 +15,27 @@
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:id="@+id/linearLayout">
 
         <EditText android:id="@+id/edit_message"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/edit_message" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add to current log"
+            android:text="Enter Time stamp"
+            android:id="@+id/button_time"
+            android:onClick="enterTimeStamp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submit"
             android:id="@+id/button"
             android:onClick="addToLog" />
 
@@ -69,7 +76,6 @@
             android:text="List"
             android:id="@+id/button5"
             android:onClick="lsDir" />
-
 
 
     </LinearLayout>
