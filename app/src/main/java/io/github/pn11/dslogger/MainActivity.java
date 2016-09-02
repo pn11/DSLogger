@@ -4,6 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.location.LocationProvider;
 import android.os.Environment;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
@@ -20,13 +24,19 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
+    private LocationManager mLocationManager;
     public final static String EXTRA_MESSAGE = "io.github.pn11.dslogger.MESSAGE";
+    private LocationManager locationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+//        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+//        boolean gpsFlg = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+//        Log.d("GPS Enabled", gpsFlg?"OK":"NG");
     }
 
     public static String getNowDate() { //http://qiita.com/zuccyi/items/d9c185588a5628837137
@@ -36,12 +46,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public static String getNowDateHuman() { //http://qiita.com/zuccyi/items/d9c185588a5628837137
-        final DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        final Date date = new Date(System.currentTimeMillis());
-        return df.format(date);
-    }
-
-    public static String getGPSLocation() { //http://qiita.com/yasumodev/items/5f0f030f0ebfcecdff11
         final DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         final Date date = new Date(System.currentTimeMillis());
         return df.format(date);
@@ -142,7 +146,8 @@ public class MainActivity extends AppCompatActivity {
         editor.putString("log_content", log_content);
         editor.commit();
     }
-    public String getContentFromPreference(){
+
+    public String getContentFromPreference() {
         Context context = getApplicationContext();
         SharedPreferences sharedPref = context.getSharedPreferences(
                 getString(R.string.pref_file), Context.MODE_PRIVATE);
@@ -151,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
         return get_str;
     }
 
-    public void resetPreference(View view){
+    public void resetPreference(View view) {
         Context context = getApplicationContext();
         SharedPreferences sharedPref = context.getSharedPreferences(
                 getString(R.string.pref_file), Context.MODE_PRIVATE);
@@ -166,12 +171,39 @@ public class MainActivity extends AppCompatActivity {
         String str = editText.getText().toString();
         editText.setSelection(str.length());
     }
-
+/*
     public void enterLocationStamp(View view) {
         EditText editText = (EditText) findViewById(R.id.edit_message);
-        editText.setText(getGPSLocation() + " ");
+        editText.setText(getGPSLocation(view) + " ");
         String str = editText.getText().toString();
         editText.setSelection(str.length());
     }
-}
 
+
+    public String getGPSLocation(View view) {
+        if (locationManager == null){
+            Log.d("GPS", "lm is null");
+            return "NOGPS";
+        }
+        System.out.println("test1");
+//        Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+          System.out.println(LocationProvider.AVAILABLE);
+          System.out.println(LocationProvider.OUT_OF_SERVICE);
+          String provider0 = locationManager.getAllProviders().get(0);
+          System.out.println(provider0);
+          return provider0;
+        //System.out.println("test2");
+//        double lat = location.getLatitude();
+        //System.out.println("test3");
+//        double longt = location.getLongitude();
+        //return String.valueOf(lat) + " " + String.valueOf(longt) + " ";
+        //return "test";
+    }
+*/
+
+// See how to determine which provider is precise from
+// https://developer.android.com/guide/topics/location/strategies.html
+
+
+
+}
