@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">DSLogger</string>
+    <string name="app_identifier">io.github.pn11.dslogger</string>
+    <string name="edit_message">Enter a log.</string>
+    <string name="pref_file">io.github.pn11.dslogger.preference</string>
 </resources>
