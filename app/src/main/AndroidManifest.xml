@@ -14,8 +14,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".viewLogActivity"></activity>
-        <activity android:name=".lsActivity"></activity>
+        <activity android:name=".ViewLogActivity"></activity>
+        <activity android:name=".LsActivity"></activity>
     </application>
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />

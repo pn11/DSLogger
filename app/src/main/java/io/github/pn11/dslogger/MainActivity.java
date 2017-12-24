@@ -4,27 +4,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
-import android.location.LocationProvider;
 import android.os.Environment;
-import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
     private LocationManager mLocationManager;
     public final static String EXTRA_MESSAGE = "io.github.pn11.dslogger.MESSAGE";
     private LocationManager locationManager;
@@ -39,25 +30,15 @@ public class MainActivity extends AppCompatActivity{
 //        Log.d("GPS Enabled", gpsFlg?"OK":"NG");
     }
 
-    public static String getNowDate() { //http://qiita.com/zuccyi/items/d9c185588a5628837137
-        final DateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
-        final Date date = new Date(System.currentTimeMillis());
-        return df.format(date);
-    }
 
-    public static String getNowDateHuman() { //http://qiita.com/zuccyi/items/d9c185588a5628837137
-        final DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        final Date date = new Date(System.currentTimeMillis());
-        return df.format(date);
-    }
 
     public void saveLog(View view) { // from https://developer.android.com/training/basics/data-storage/files.html?hl=ja
         Context context = getApplicationContext();
-        String nowtime = getNowDate();
+        String currentTime = Util.getCurrentDate();
         String sdPath = new File(getExternalFilesDir(null), ".").getAbsolutePath();
 //        System.out.println(sdPath);
 
-        String filename = sdPath + "/log" + nowtime + ".txt";
+        String filename = sdPath + "/log" + currentTime + ".txt";
         Resources res = getResources();
         String log_content = getContentFromPreference();
         FileOutputStream outputStream;
@@ -80,12 +61,12 @@ public class MainActivity extends AppCompatActivity{
                 toast.show();
             } catch (Exception e) {
                 e.printStackTrace();
-                Toast toast3 = Toast.makeText(getApplicationContext(), "file IO Error", Toast.LENGTH_SHORT);
-                toast3.show();
+                Toast toast = Toast.makeText(getApplicationContext(), "file IO Error", Toast.LENGTH_SHORT);
+                toast.show();
             }
         } else {
-            Toast toast2 = Toast.makeText(getApplicationContext(), "SD card cannot be writable.", Toast.LENGTH_SHORT);
-            toast2.show();
+            Toast toast = Toast.makeText(getApplicationContext(), "SD card cannot be writable.", Toast.LENGTH_SHORT);
+            toast.show();
         }
     }
 
@@ -106,7 +87,7 @@ public class MainActivity extends AppCompatActivity{
     }
 
     public void viewLog(View view) {
-        Intent intent = new Intent(this, viewLogActivity.class);
+        Intent intent = new Intent(this, ViewLogActivity.class);
         String log_content = getContentFromPreference();
         intent.putExtra(EXTRA_MESSAGE, log_content);
         startActivity(intent);
@@ -114,7 +95,7 @@ public class MainActivity extends AppCompatActivity{
 
 
     public void lsDir(View view) {
-        Intent intent = new Intent(this, lsActivity.class);
+        Intent intent = new Intent(this, LsActivity.class);
         startActivity(intent);
     }
 
@@ -167,10 +148,12 @@ public class MainActivity extends AppCompatActivity{
 
     public void enterTimeStamp(View view) {
         EditText editText = (EditText) findViewById(R.id.edit_message);
-        editText.setText(getNowDateHuman() + " ");
+        editText.setText(Util.getCurrentDateHuman() + " ");
         String str = editText.getText().toString();
         editText.setSelection(str.length());
     }
+
+
 /*
     public void enterLocationStamp(View view) {
         EditText editText = (EditText) findViewById(R.id.edit_message);
@@ -203,7 +186,6 @@ public class MainActivity extends AppCompatActivity{
 
 // See how to determine which provider is precise from
 // https://developer.android.com/guide/topics/location/strategies.html
-
 
 
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,17 +8,36 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="io.github.pn11.dslogger.viewLogActivity">
+    tools:context="io.github.pn11.dslogger.ViewLogActivity">
+
+    <LinearLayout
+        android:id="@+id/menu_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end">
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="16dp"
+            android:layout_gravity="end"
+            android:contentDescription="share menu button"
+            android:onClick="share"
+            app:srcCompat="@android:drawable/ic_menu_share"
+            />
+    </LinearLayout>
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/menu_bar">
 
         <LinearLayout
+            android:id="@+id/activity_viewlog"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/activity_viewlog">
-
-
+            android:gravity="bottom"
+            android:orientation="horizontal">
         </LinearLayout>
 
     </ScrollView>

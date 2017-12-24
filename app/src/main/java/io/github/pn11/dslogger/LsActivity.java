@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import java.io.File;
 
-public class lsActivity extends AppCompatActivity {
+public class LsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,7 +17,12 @@ public class lsActivity extends AppCompatActivity {
     }
 
 
-    public File[] listDir(View view){ // using http://stackoverflow.com/a/8752200
+    /**
+     * List the files in current directory.
+     * @param view
+     * @return
+     */
+    public File[] listDir(View view) { // using http://stackoverflow.com/a/8752200
         //String pathToScan = "../../../..";
         String pathToScan = "./";
         String fileThatYouWantToFilter;
@@ -27,14 +32,13 @@ public class lsActivity extends AppCompatActivity {
 //        File folderToScan = new File(getFilesDir(), pathToScan);
         File[] listOfFiles = folderToScan.listFiles();
         Log.d("test", folderToScan.getAbsolutePath());
-        TextView tv = (TextView)findViewById(R.id.textView);
-        String scanning = "Scanning...";
+        TextView tv = (TextView) findViewById(R.id.textView);
+        final String scanning = "Scanning...";
         tv.setText(scanning);
 
-        for (int i = 0; i < listOfFiles.length; i++) {
-
-            if (listOfFiles[i].isFile()) {
-                fileThatYouWantToFilter = listOfFiles[i].getName();
+        for (File file: listOfFiles) {
+            if (file.isFile()) {
+                fileThatYouWantToFilter = file.getName();
                 list += fileThatYouWantToFilter + "\n";
             }
         }
